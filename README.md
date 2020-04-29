@@ -27,9 +27,19 @@ We take advantage of the Tidyverse library. we start by importing the data from 
 To make sure that we’re not overfitting our model, we split the data into a training set and a test set. This is known as cross validation.
 To implement a logistic regression model, we used the generalized linear models (GLM) function, then we summarized the fit, the following is the result:
 
+
+![9](https://user-images.githubusercontent.com/58350018/80562652-f3272d80-89ad-11ea-949a-e59d8b868706.jpg)
+
+
+
+
  
 Result shows that only six variables are significant:  tenure, ContractOne year, ContracTow year, PaperLessBillingYear, PaymentMethodelectronic check, and TotalCharges.
 After we fit our model, we saw how it performs, we made predictions using the test data set. We passed in the fit model from the previous section. To predict the probabilities, we specified type=” response”, then we convert these probabilities to a binary response, then we evaluate our model using confusing matrix, the following is the result:
+
+
+![10](https://user-images.githubusercontent.com/58350018/80562653-f6221e00-89ad-11ea-8563-3ebcbe5bd5f2.jpg)
+
 
  
 
@@ -44,11 +54,20 @@ Another useful metric is the Area Under the Receiver Operating Characteristic (R
 the ROC is a plot of the True Positive Rate vs. the False Positive Rate.
 We made a plot of the ROC curve using the pROC library. Here’s the result:
 
+
+
+![11](https://user-images.githubusercontent.com/58350018/80562662-fde1c280-89ad-11ea-9b08-e83a8920b8a9.png)
+
+
+
  
 The AUC can take on any value between 0 and 1, with 1 being the best. This is a convenient way to boil down the ROC to a single number for evaluating a model. Our model has an AUC of 0.85, which is pretty good. 
 So, we know that our model is at least adding some value!, and to improve our model we will used a better approach called K-fold Cross Validation, we  randomly partition the data in to test and training sets by specifying a certain number of “folds”( k=10). 
 After we run the model on each fold, we average the evaluation metric from each one. So, if we ran the model ten times using ROC, we would average each of the ten ROC values together. This is a great way to try and prevent overfitting a model.
 We also repeat the process 3 times, just to add a little bit more technical rigor to our approach. And we changed the positive class to “Yes” right before the code for the trainControl function. We did this so that we could compare the sensitivity and specificity with our previous results. Here’s the result:
+
+
+![12](https://user-images.githubusercontent.com/58350018/80562665-00dcb300-89ae-11ea-8395-3cf0a4744be3.jpg)
 
  
 
@@ -79,6 +98,9 @@ Rather than use the total number of each outcome for TN, FP, FN, and TP, we used
 There’s 1760 observations in our test set, so that’s where that number comes from. By doing it this way we’re calculating the cost per customer.
 Now if we assumed that the company is currently using what we’ll call a “simple model” which just defaults to a threshold of 0.5.
 Finally, we can put all of the results in a dataframe and plot them, the following is the result:
+
+
+![13](https://user-images.githubusercontent.com/58350018/80562667-04703a00-89ae-11ea-89de-339f276d4cf2.png)
 
  
 
